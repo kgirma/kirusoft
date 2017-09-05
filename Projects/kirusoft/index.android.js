@@ -33,7 +33,7 @@ export default class kirusoft extends Component {
             </View>
           </View>
         </View>
-        <Text style={styles.legaltext}>Copyright © 2017 kirusoft Dev. All rights reserved.</Text>
+        <Text style={styles.legaltext}>Copyright © 2017 Kirusoft Dev. All rights reserved.</Text>
       </View>
     );
   }
