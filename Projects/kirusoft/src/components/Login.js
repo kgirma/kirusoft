@@ -5,8 +5,7 @@
  */
 import React, { Component } from 'react';
 import Button from 'apsl-react-native-button'
-import firebase from 'firebase';
-import Login from './Login.js';
+
 import {
     StyleSheet,
     Text,
@@ -15,20 +14,38 @@ import {
     TextInput
 } from 'react-native';
 
-export default class App extends Component {
-    componentWillMount() {
-        firebase.initializeApp({
-            apiKey: "AIzaSyDMJouxn24sv01QggcgRbDgj6GBM2kPvjs",
-            authDomain: "kirusoft-app.firebaseapp.com",
-            databaseURL: "https://kirusoft-app.firebaseio.com",
-            projectId: "kirusoft-app",
-            storageBucket: "",
-            messagingSenderId: "217781255647"
-        });
+export default class Login extends Component {
+
+    state = {
+        email:'',
+        password:''
+    };
+
+    onButtonPress(){
+        console.log('Yo! whats good')
     }
+
     render() {
+        const {container, logincomhldr, btninpt} = styles;
         return (
-            <Login styles={styles.container}/>
+            <View style={styles.container}>
+                <Image source={require('../img/buckler.png')} style={styles.backimg} />
+                <View style={styles.main_logincomhldr}>
+                    <View style={styles.logincomhldr}>
+                        <Image source={require('../img/logo.png')} style={styles.logo} />
+                        <View style={styles.inp_holder}>
+                            <TextInput text={this.state.email} onTextChange={email => this.setState({email})} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'}/>
+                            <TextInput text={this.state.password} onTextChange={password => this.setState({password})} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} password={true}/>
+                            <View style={styles.btninpt}>
+                                <Button onPress={this.onButtonPress.bind(this)} style={{ justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#51A4C1', borderRadius: 0, borderWidth: 0 }} textStyle={{ fontSize: 18, color: 'white' }}>
+                                    Login
+              </Button>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <Text style={styles.legaltext}>Copyright © 2017 Kirusoft Dev. All rights reserved.</Text>
+            </View>
         );
     }
 }
