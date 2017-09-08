@@ -4,8 +4,8 @@
  * @flow
  */
 import React, { Component } from 'react';
-import Button from 'apsl-react-native-button'
-
+import Button from 'apsl-react-native-button';
+import LoadIcon from './LoadIcon.js';
 import {
     StyleSheet,
     Text,
@@ -17,16 +17,31 @@ import {
 export default class Login extends Component {
 
     state = {
-        email:'',
-        password:''
+        email: '',
+        password: '',
+        loading: false
     };
 
-    onButtonPress(){
-        console.log('Yo! whats good')
+    onButtonPress() {
+        console.log('Yo! whats good');
+    }
+
+    renderLoader() {
+        if (this.state.loading) { //if true
+            return
+            <LoadIcon size="large" />
+        }
+        else {
+            return (
+                <Button onPress={this.onButtonPress.bind(this)} style={{ justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#51A4C1', borderRadius: 0, borderWidth: 0 }} textStyle={{ fontSize: 18, color: 'white' }}>
+                    Login
+                </Button>
+            )
+        }
     }
 
     render() {
-        const {container, logincomhldr, btninpt} = styles;
+        const { container, logincomhldr, btninpt } = styles;
         return (
             <View style={styles.container}>
                 <Image source={require('../img/buckler.png')} style={styles.backimg} />
@@ -34,12 +49,10 @@ export default class Login extends Component {
                     <View style={styles.logincomhldr}>
                         <Image source={require('../img/logo.png')} style={styles.logo} />
                         <View style={styles.inp_holder}>
-                            <TextInput text={this.state.email} onTextChange={email => this.setState({email})} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'}/>
-                            <TextInput text={this.state.password} onTextChange={password => this.setState({password})} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} password={true}/>
+                            <TextInput text={this.state.email} onTextChange={email => this.setState({ email })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'} />
+                            <TextInput text={this.state.password} onTextChange={password => this.setState({ password })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} password={true} />
                             <View style={styles.btninpt}>
-                                <Button onPress={this.onButtonPress.bind(this)} style={{ justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#51A4C1', borderRadius: 0, borderWidth: 0 }} textStyle={{ fontSize: 18, color: 'white' }}>
-                                    Login
-              </Button>
+                                {this.renderLoader()}
                             </View>
                         </View>
                     </View>
