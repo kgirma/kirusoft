@@ -15,8 +15,8 @@ export default class Login extends Component {
     state = {
         email: '',
         password: '',
+        error: '',
         loading: false,
-        error: 'Sorry, you may have typed in the wrong Username or Password',
     };
 
     onButtonPress() {
@@ -37,21 +37,21 @@ export default class Login extends Component {
             email:'',
             password: '',
             error: '',
-            loading:''
+            loading: true,
         })
     }
 
     onAuthFailed(){
         this.setState({
-            email:'',
-            error: 'Sorry, you may have typed in the wrong Username or Password'
+            error: 'Sorry, you may have typed in the wrong Username or Password',
+            loading: false
         })
     }
 
     renderLoader() {
         if (this.state.loading) { //if true
             return (
-                <LoadIcon size="large" />
+                <LoadIcon size="large"/>
             )
         }
         else {
@@ -74,7 +74,7 @@ export default class Login extends Component {
                         <View style={styles.inp_holder}>
                             <TextInput text={this.state.email} onTextChange={email => this.setState({ email })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'} />
                             <TextInput secureTextEntry={true} password={true} text={this.state.password} onTextChange={password => this.setState({ password })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} />
-                            <Text text={this.state.error} style={styles.error}></Text>
+                            <Text style={styles.error}>{this.state.error}</Text>
                             <View style={styles.btninpt}>
                                 {this.renderLoader()}
                             </View>
@@ -90,7 +90,8 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     error: {
         color: 'red',
-        backgroundColor: 'rgba(0,0,0,0)'
+        backgroundColor: 'rgba(0,0,0,0)',
+        textAlign: 'center'
     },
 
     btninpt: {
