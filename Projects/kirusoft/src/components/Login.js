@@ -43,7 +43,8 @@ export default class Login extends Component {
 
     onAuthFailed(){
         this.setState({
-            email:''
+            email:'',
+            error: 'Sorry, you may have typed in the wrong Username or Password'
         })
     }
 

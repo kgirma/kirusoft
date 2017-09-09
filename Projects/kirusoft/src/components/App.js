@@ -28,12 +28,9 @@ export default class App extends Component {
     }
     
     render() {
-        return <Login/>
+        return (<Login/>)
     }
 
-    onRegister() {
-        
-    }
 }
 
 const styles = StyleSheet.create({
