@@ -3,18 +3,19 @@ import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 const LoadIcon = ({ size }) => {
     return (
-        <View style={styles.Loader}>
-            <ActivityIndicator size={size || 'small'} />
+        <View style={styles.loader}>
+            <ActivityIndicator size={size || 'large'} />
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-Loader:{
-    width: '100%',
-    height: '100%'
+loader:{
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
 }
-
 });
 
 export default LoadIcon; //exports this on a call on a different script

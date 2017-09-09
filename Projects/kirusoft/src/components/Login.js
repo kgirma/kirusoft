@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 import React, { Component } from 'react';
 import Button from 'apsl-react-native-button';
 import LoadIcon from './LoadIcon.js';
@@ -19,7 +14,7 @@ export default class Login extends Component {
     state = {
         email: '',
         password: '',
-        loading: false
+        loading: true
     };
 
     onButtonPress() {
@@ -28,8 +23,9 @@ export default class Login extends Component {
 
     renderLoader() {
         if (this.state.loading) { //if true
-            return
-            <LoadIcon size="large" />
+            return (
+                <LoadIcon size="large" />
+            )
         }
         else {
             return (
@@ -50,7 +46,7 @@ export default class Login extends Component {
                         <Image source={require('../img/logo.png')} style={styles.logo} />
                         <View style={styles.inp_holder}>
                             <TextInput text={this.state.email} onTextChange={email => this.setState({ email })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'} />
-                            <TextInput text={this.state.password} onTextChange={password => this.setState({ password })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} password={true} />
+                            <TextInput secureTextEntry={true} password={true} text={this.state.password} onTextChange={password => this.setState({ password })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} />
                             <View style={styles.btninpt}>
                                 {this.renderLoader()}
                             </View>
