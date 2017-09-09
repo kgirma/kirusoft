@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'apsl-react-native-button';
 import LoadIcon from './LoadIcon.js';
+import firebase from 'firebase';
 import {
     StyleSheet,
     Text,
@@ -14,11 +15,36 @@ export default class Login extends Component {
     state = {
         email: '',
         password: '',
-        loading: true
+        loading: false,
+        error: 'Sorry, you may have typed in the wrong Username or Password',
     };
 
     onButtonPress() {
-        console.log('Yo! whats good');
+        const {email, password } = this.state;
+        this.setState({error: '', loading: true});
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(this.onAuthSuccess.bind(this))
+            .catch(() => {
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then(this.onAuthSuccess.bind(this))
+                    .catch(this.onAuthFailed.bind(this));
+            });
+    }
+
+    onAuthSuccess(){
+        this.setState({
+            email:'',
+            password: '',
+            error: '',
+            loading:''
+        })
+    }
+
+    onAuthFailed(){
+        this.setState({
+            email:''
+        })
     }
 
     renderLoader() {
@@ -47,6 +73,7 @@ export default class Login extends Component {
                         <View style={styles.inp_holder}>
                             <TextInput text={this.state.email} onTextChange={email => this.setState({ email })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'} />
                             <TextInput secureTextEntry={true} password={true} text={this.state.password} onTextChange={password => this.setState({ password })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} />
+                            <Text text={this.state.error} style={styles.error}></Text>
                             <View style={styles.btninpt}>
                                 {this.renderLoader()}
                             </View>
@@ -60,6 +87,10 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+    error: {
+        color: 'red',
+        backgroundColor: 'rgba(0,0,0,0)'
+    },
 
     btninpt: {
         width: 164.21,

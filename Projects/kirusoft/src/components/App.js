@@ -4,9 +4,9 @@
  * @flow
  */
 import React, { Component } from 'react';
-import Button from 'apsl-react-native-button'
-import firebase from 'firebase'
-import Login from './Login.js'
+import Button from 'apsl-react-native-button';
+import firebase from 'firebase';
+import Login from './Login.js';
 import {
     StyleSheet,
     Text,
@@ -28,7 +28,11 @@ export default class App extends Component {
     }
     
     render() {
-        return <Login />
+        return <Login/>
+    }
+
+    onRegister() {
+        
     }
 }
 
