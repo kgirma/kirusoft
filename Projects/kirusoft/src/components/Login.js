@@ -20,8 +20,8 @@ export default class Login extends Component {
     };
 
     onButtonPress() {
-        const {email, password } = this.state;
-        this.setState({error: '', loading: true});
+        const { email, password } = this.state;
+        this.setState({ error: '', loading: true });
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(this.onAuthSuccess.bind(this))
@@ -32,34 +32,28 @@ export default class Login extends Component {
             });
     }
 
-    onAuthSuccess(){
+    onAuthSuccess() {
         this.setState({
-            email:'',
+            email: '',
             password: '',
             error: '',
-            loading: true,
+            loading: false,
         })
     }
 
-    onAuthFailed(){
+    onAuthFailed() {
         this.setState({
-            error: 'Sorry, you may have typed in the wrong Username or Password',
+            error: 'Sorry, The user name or password is incorrect.',
             loading: false
         })
     }
 
     renderLoader() {
         if (this.state.loading) { //if true
-            return (
-                <LoadIcon size="large"/>
-            )
+            return <LoadIcon size="large" />
         }
         else {
-            return (
-                <Button onPress={this.onButtonPress.bind(this)} style={{ justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#51A4C1', borderRadius: 0, borderWidth: 0 }} textStyle={{ fontSize: 18, color: 'white' }}>
-                    Login
-                </Button>
-            )
+            return <Button onPress={this.onButtonPress.bind(this)} style={{ justifyContent: 'center', width: '100%', height: '100%', backgroundColor: '#51A4C1', borderRadius: 0, borderWidth: 0 }} textStyle={{ fontSize: 18, color: 'white' }}>Login</Button>
         }
     }
 
@@ -72,8 +66,8 @@ export default class Login extends Component {
                     <View style={styles.logincomhldr}>
                         <Image source={require('../img/logo.png')} style={styles.logo} />
                         <View style={styles.inp_holder}>
-                            <TextInput text={this.state.email} onTextChange={email => this.setState({ email })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'} />
-                            <TextInput secureTextEntry={true} password={true} text={this.state.password} onTextChange={password => this.setState({ password })} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} />
+                            <TextInput autoCapitalize={'none'} keyboardType={'email-address'} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Email'} value={this.state.email} onChangeText={email => this.setState({ email })}/>
+                            <TextInput secureTextEntry={true} style={styles.inpt} underlineColorAndroid='rgba(0,0,0,0)' placeholder={'Password'} value={this.state.password} onChangeText={password => this.setState({ password })}/>
                             <Text style={styles.error}>{this.state.error}</Text>
                             <View style={styles.btninpt}>
                                 {this.renderLoader()}
