@@ -49,7 +49,7 @@ export default class Login extends Component {
     }
 
     renderLoader() {
-        if (this.state.loading) { //if true
+        if (this.state.loading) { //in other terms 'if true'
             return <LoadIcon size="large" />
         }
         else {

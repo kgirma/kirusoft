@@ -7,8 +7,16 @@ import React, { Component } from 'react';
 import Button from 'apsl-react-native-button';
 import firebase from 'firebase';
 import Login from './Login.js';
+//Redux stuff
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from '../reducers/peopleReducer.js';
+//..
 import PeopleList from './PeopleList.js';
 import LoadIcon from './LoadIcon.js';
+import { StatusBar } from 'react-native';
+import StatusBarBackground from './StatusBar.js'
+
 import {
     StyleSheet,
     Text,
@@ -17,11 +25,15 @@ import {
     TextInput
 } from 'react-native';
 
+// creating a reducer store
+const store = createStore(reducers);
+
 export default class App extends Component {
 
     state = { loggedIn: null };
 
     componentWillMount() {
+
         firebase.initializeApp({
             apiKey: "AIzaSyDMJouxn24sv01QggcgRbDgj6GBM2kPvjs",
             authDomain: "kirusoft-app.firebaseapp.com",
@@ -40,14 +52,18 @@ export default class App extends Component {
         });
     }
 
+    statusbarIos() {
+        <StatusBarBackground style={{ backgroundColor: 'MidnightBlue' }} />
+    }
+
     renderInitialView() {
         switch (this.state.loggedIn) {
             case true:
-                return <PeopleList/>;
+                return <PeopleList />;
             case false:
-                return <Login/>;
+                return <Login />;
             default:
-                return <LoadIcon size="large"/>;
+                return <LoadIcon size="large" />;
         }
     }
 
@@ -56,7 +72,9 @@ export default class App extends Component {
 
     render() {
         return (
-        this.renderInitialView()
+            <Provider store={store}>
+                {this.renderInitialView()}
+            </Provider>
         )
     }
 
