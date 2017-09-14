@@ -1,54 +1,52 @@
-
 import React, { Component } from 'react';
 import Button from 'apsl-react-native-button';
-
+import {connect} from 'react-redux';
+import PersonItem from './PersonItem'
 import {
     Text,
     View,
     TextInput,
     StyleSheet,
-    Image
+    Image,
+    ListView,
+    Platform //for platform specific styling
 } from 'react-native';
 
-export default class App extends Component {
+const mapStateToProps = state => {
+    return {people: state.people};
+}
+
+class PeopleList extends Component {
+
+    componentWillMount(){
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2,
+        });
+        this.dataSource = ds.cloneWithRows(this.props.people);
+    }
     render() {
         return (
-            <View style={styles.usercomps}>
-                <Image style={styles.usr_img} source={require('../img/user.png')} />
-                <View style={styles.usr_txt}>
-                    <Text style={styles.usr_txt_username}>Username</Text>
-                    <Text style={styles.usr_txt_email}>email</Text>
-                </View>
-            </View>
+            <View style={styles.container}>
+                <ListView 
+                enableEmptySections={true}
+                dataSource={this.dataSource}
+                renderRow=  { (rowData) => <PersonItem people={rowData}/> }
+                />
+            </View>    
         );
     }
 }
 
 const styles = StyleSheet.create({
-    usr_img: {
-        height: 40,
-        width: 40,
-        borderRadius: 20
-    },
-
-    usr_txt: {
-        flex: 1,
-        flexDirection: 'column',
-        marginLeft: 10 //gap between the image and the text
-    },
-
-    usr_txt_username: {
-        fontSize: 13,
-
-    },
-
-    usr_txt_email: {
-        fontSize: 11,
-
-    },
-
-    usercomps: {
-        flex: 1,
-        flexDirection: 'row',
+    container: {
+        marginTop: (Platform.OS === 'ios') ? 20: 0, //first is for IOS the second if for android
+        minHeight: 55,
+        width: '100%',
+        padding: 5,
+        marginBottom: 5,
+        //backgroundColor: 'cornflowerblue'
     }
 });
+
+
+export default connect(mapStateToProps)(PeopleList);

@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 import React, { Component } from 'react';
 import Button from 'apsl-react-native-button';
 import firebase from 'firebase';
@@ -25,8 +20,11 @@ import {
     TextInput
 } from 'react-native';
 
-// creating a reducer store
-const store = createStore(reducers);
+// creating a reducer store 
+const store = createStore(
+  reducers, /* preloadedState, */
+   /* Delete this line in production*/ window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default class App extends Component {
 
@@ -59,7 +57,7 @@ export default class App extends Component {
     renderInitialView() {
         switch (this.state.loggedIn) {
             case true:
-                return <PeopleList />;
+                return <PeopleList/>;
             case false:
                 return <Login />;
             default:
