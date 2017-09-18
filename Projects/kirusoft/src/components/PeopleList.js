@@ -27,12 +27,12 @@ class PeopleList extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ListView 
+                <ListView
                 enableEmptySections={true}
                 dataSource={this.dataSource}
                 renderRow=  { (rowData) => <PersonItem people={rowData}/> }
                 />
-            </View>    
+            </View>
         );
     }
 }

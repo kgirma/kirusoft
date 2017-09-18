@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import * as actions from '../actions';
 
-
 const styles = StyleSheet.create({
     usr_img: {
         height: 40,

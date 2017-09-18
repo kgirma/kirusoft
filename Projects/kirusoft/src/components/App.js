@@ -57,16 +57,13 @@ export default class App extends Component {
     renderInitialView() {
         switch (this.state.loggedIn) {
             case true:
-                return <PeopleList/>;
+                return <Login/>;
             case false:
                 return <Login />;
             default:
                 return <LoadIcon size="large" />;
         }
     }
-
-
-
 
     render() {
         return (
